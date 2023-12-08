@@ -4,7 +4,7 @@ CREATE TABLE singer
     first_name VARCHAR(60),
     last_name VARCHAR(40),
     birth_date date,
-    version int
+    version INTEGER
 );
 
 CREATE TABLE album
@@ -13,7 +13,7 @@ CREATE TABLE album
     singer_id INTEGER REFERENCES singer(id),
     title VARCHAR(100),
     release_date date,
-    version int
+    version INTEGER
 );
 
 CREATE TABLE instrument

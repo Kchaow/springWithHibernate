@@ -10,6 +10,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
@@ -22,6 +24,17 @@ import lombok.NoArgsConstructor;
 @Table(name = "singer")
 @NoArgsConstructor
 @AllArgsConstructor
+@NamedQueries({
+	@NamedQuery(name = "Singer.findById",
+			query="select distinct s from Singer s "
+					+ "left join fetch s.albums a "
+					+ "left join fetch s.instruments i "
+					+ "where s.id = :id"),
+	@NamedQuery(name="Singer.findAllWithAlbum",
+			query="select distinct s from Singer s "
+					+ "left join fetch s.albums a "
+					+ "left join fetch s.instruments i ")
+})
 public class Singer extends AbstractEntity
 {
 	@Serial

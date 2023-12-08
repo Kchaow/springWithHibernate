@@ -23,10 +23,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Instrument implements Serializable
 {
+	private Long id;
 	private Set<Singer> singers = new HashSet<>();
 	@Serial
 	private static final long serialVersionUID = 4L;
-	private String instrumentId;
 	
 	@ManyToMany
 	@JoinTable(name = "singer_instrument",
@@ -43,14 +43,14 @@ public class Instrument implements Serializable
 	}
 	
 	@Id
-	@Column(name = "instrument_id")
-	public String getInstrumentId() 
+	@Column(name = "id")
+	public Long getInstrumentId() 
 	{
-		return instrumentId;
+		return id;
 	}
 	
-	public void setInstrumentId(String instrumentId) 
+	public void setInstrumentId(Long id) 
 	{
-		this.instrumentId = instrumentId;
+		this.id = id;
 	}
 }
