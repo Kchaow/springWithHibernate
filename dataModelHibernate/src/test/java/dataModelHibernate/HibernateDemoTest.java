@@ -25,6 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.ext.ScriptUtils;
@@ -41,6 +42,9 @@ import jakarta.annotation.PostConstruct;
 
 @Testcontainers
 @SpringJUnitConfig(classes = {Application.class})
+@Sql(statements = "CREATE FUNCTION getFirstNameById(in_id bigint) RETURNS VARCHAR(250) AS $$ "
+		+ "SELECT first_name FROM SINGER WHERE id = in_id "
+		+ "$$ LANGUAGE SQL;")
 public class HibernateDemoTest 
 {
 	private static final Logger logger = LoggerFactory.getLogger(HibernateDemoTest.class);
@@ -105,6 +109,11 @@ public class HibernateDemoTest
 		singerDao.delete(newSinger);
 		newSinger = singerDao.findById(id);
 		assertNull(newSinger);
+		
+		singer = singerDao.findAllDetails("Michael", "Jackson");
+		assertNotNull(singer);
+		
+		assertEquals("Michael", singerDao.findFirstNameById((long)10));
 	}
 	
 	@Configuration

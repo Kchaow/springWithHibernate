@@ -43,7 +43,7 @@ public class Singer extends AbstractEntity
 	private String firstName;
 	private String lastName;
 	private Set<Album> albums = new HashSet<>();
-	private Set<Instrument> instruments;
+	private Set<Instrument> instruments = new HashSet<>();
 	private LocalDate birthDate;
 	
 	@ManyToMany
