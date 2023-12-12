@@ -17,6 +17,8 @@ public abstract class AbstractEntity implements Serializable
 	private static final long serialVersionUID = 1L;
 	
 	protected Long id;
+	@Version
+	@Column(name = "version")
 	protected int version;
 	
 	@Id
@@ -32,8 +34,7 @@ public abstract class AbstractEntity implements Serializable
 		this.id = id;
 	}
 	
-	@Version
-	@Column(name = "version")
+
 	public int getVersion()
 	{
 		return version;
